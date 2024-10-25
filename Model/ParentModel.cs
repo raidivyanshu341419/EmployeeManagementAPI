@@ -1,5 +1,4 @@
-﻿using EmployeeManagement.DbModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeManagement.Model
 {
@@ -12,6 +11,7 @@ namespace EmployeeManagement.Model
         [Required]
         [StringLength(100)]
         public string DepartmentLogo { get; set; }
-       
+
     }
+
 }

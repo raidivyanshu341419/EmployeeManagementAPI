@@ -4,7 +4,6 @@ using EmployeeManagement.Helper;
 using EmployeeManagement.Model;
 using EmployeeManagement.Services.Interface;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Eventing.Reader;
 
 namespace EmployeeManagement.Services
 {
@@ -16,9 +15,14 @@ namespace EmployeeManagement.Services
         {
             _employeecontext = employeecontext;
         }
-        public async Task<ApiResponse> AddNewParentDepartment(ParentModel parent)
+        public async Task<AddNewParentDepartmentResponseModel> AddNewParentDepartment(ParentModel parent)
         {
-            ApiResponse apiResponse = new ApiResponse();
+            AddNewParentDepartmentResponseModel apiResponse = new AddNewParentDepartmentResponseModel()
+            {
+                status = false,
+                message = string.Empty,
+                parentDepartment = new ParentDepartment()
+            };
             try
             {
                 var parentdata = _employeecontext.ParentDepartments.Where(x => x.DepartmentName == parent.DepartmentName).FirstOrDefault();
@@ -33,19 +37,21 @@ namespace EmployeeManagement.Services
                     await _employeecontext.ParentDepartments.AddAsync(parentdept);
                     if (await _employeecontext.SaveChangesAsync() > 0)
                     {
-                        apiResponse.Code = 200;
-                        apiResponse.Result = "true";
+                        apiResponse.status = true;
+                        apiResponse.message = "Department Added Successfully!";
+                        apiResponse.parentDepartment.DepartmentName = parentdept.DepartmentName;
+                        apiResponse.parentDepartment.DepartmentLogo = parentdept.DepartmentLogo;
                     }
                     else
                     {
-                        apiResponse.Code = 400;
-                        apiResponse.Result = "false";
+                        apiResponse.status = false;
+                        apiResponse.message = "";
                     }
                 }
                 else
                 {
-                    apiResponse.Code = 409;
-                    apiResponse.Result = "Already Exists";
+                    apiResponse.status = false;
+                    apiResponse.message = "Already Exists!";
                 }
             }
             catch (Exception)
@@ -96,10 +102,13 @@ namespace EmployeeManagement.Services
             }
             return apiResponse;
         }
-        public async Task<List<ParentModel>> GetParentDepartment()
+        public async Task<GetAllparentDepartment> GetParentDepartment()
         {
-            List<ParentModel> parent = new List<ParentModel>();
-
+            GetAllparentDepartment response = new GetAllparentDepartment()
+            {
+                msg = string.Empty,
+                status = false
+            };
             try
             {
                 var parentsData = _employeecontext.ParentDepartments.ToList();
@@ -119,24 +128,24 @@ namespace EmployeeManagement.Services
                 //}
 
                 // Other way to find the data in list : 
-                parent = (from item in parentsData
-                          where parentsData.Count() > 0
-                          select new ParentModel()
-                          {
-                              DepartmentId = item.DepartmentId,
-                              DepartmentName = item.DepartmentName,
-                              DepartmentLogo = item.DepartmentLogo
-                          }).ToList();
+                response.parentDepartment = (from item in parentsData
+                                             where parentsData.Count() > 0
+                                             select new ParentModel()
+                                             {
+                                                 DepartmentId = item.DepartmentId,
+                                                 DepartmentName = item.DepartmentName,
+                                                 DepartmentLogo = item.DepartmentLogo
+                                             }).ToList();
+                response.status = true;
+                response.msg = "Data fetched..!";
 
-                return parent;
+                return response;
             }
             catch (Exception ex)
             {
 
                 throw new Exception("An error occured while retrieving user.", ex);
             }
-
-            return parent;
 
         }
         public async Task<List<ChildModel>> GetAllChildDepartment()
@@ -198,9 +207,9 @@ namespace EmployeeManagement.Services
             }
         }
 
-        public async Task<List<EmployeeModel>> GetAllEmployee()
+        public async Task<List<GetEmployeeModel>> GetAllEmployee()
         {
-            List<EmployeeModel> emp = new List<EmployeeModel>();
+            List<GetEmployeeModel> emp = new List<GetEmployeeModel>();
             try
             {
                 var data = _employeecontext.Employees.ToList();
@@ -208,14 +217,14 @@ namespace EmployeeManagement.Services
                 {
                     foreach (var item in data)
                     {
-                        EmployeeModel model = new EmployeeModel();
+                        GetEmployeeModel model = new GetEmployeeModel();
                         {
                             model.EmployeeId = item.EmployeeId;
                             model.EmployeeName = item.EmployeeName;
                             model.EmailId = item.EmailId;
                             model.DepartmentId = item.DepartmentId;
                             model.ContactNo = item.ContactNo;
-                            model.Gender = item.Gender;
+                            model.Gender = item.Gender == 1 ? "Male" : "Female";
                             model.Password = item.Password;
                             model.Role = item.Role;
 
@@ -224,30 +233,30 @@ namespace EmployeeManagement.Services
                     }
                     return emp;
                 }
-                return new List<EmployeeModel>();
+                return new List<GetEmployeeModel>();
             }
             catch (Exception ex)
             {
-                return new List<EmployeeModel>();
+                return new List<GetEmployeeModel>();
             }
         }
 
-        public async Task<EmployeeModel> GetEmployeeById(int id)
+        public async Task<GetEmployeeModel> GetEmployeeById(int id)
         {
-            EmployeeModel emp = new EmployeeModel();
+            GetEmployeeModel emp = new GetEmployeeModel();
             try
             {
                 var userdata = _employeecontext.Employees.Where(x => x.EmployeeId == id).FirstOrDefault();
                 if (userdata == null)
                 {
-                    return new EmployeeModel();
+                    return new GetEmployeeModel();
                 }
                 else
                 {
                     emp.EmployeeName = userdata.EmployeeName;
                     emp.ContactNo = userdata.ContactNo;
                     emp.Role = userdata.Role;
-                    emp.Gender = userdata.Gender;
+                    emp.Gender = userdata.Gender == 1 ? "Male" : "Female";
                     emp.Password = userdata.Password;
                     emp.DepartmentId = userdata.DepartmentId;
                     emp.EmailId = userdata.EmailId;
@@ -361,7 +370,7 @@ namespace EmployeeManagement.Services
                     return apiResponse;
                 }
                 _employeecontext.Employees.Remove(data);
-
+                _employeecontext.SaveChanges();
                 apiResponse.Code = 200;
                 apiResponse.Message = "user deleted successfully!";
                 return apiResponse;

@@ -6,16 +6,16 @@ namespace EmployeeManagement.Services.Interface
 {
     public interface IEmployeeMgnt
     {
-       
-        Task<ApiResponse> AddNewParentDepartment(ParentModel parent);
+
+        Task<AddNewParentDepartmentResponseModel> AddNewParentDepartment(ParentModel parent);
         Task<ApiResponse> AddChildDepartment(ChildModel child);
-        Task<List<ParentModel>> GetParentDepartment();
+        Task<GetAllparentDepartment> GetParentDepartment();
         Task<List<ChildModel>> GetAllChildDepartment();
         Task<List<ChildDepartment>> GetChildDepartmentByParentId(int id);
 
-        Task<List<EmployeeModel>> GetAllEmployee();
+        Task<List<GetEmployeeModel>> GetAllEmployee();
 
-        Task<EmployeeModel> GetEmployeeById(int id);
+        Task<GetEmployeeModel> GetEmployeeById(int id);
         Task<ApiResponse> AddEmployee(EmployeeModel employee);
 
         Task<ApiResponse> UpdateEmployee(EmployeeModel employee);
