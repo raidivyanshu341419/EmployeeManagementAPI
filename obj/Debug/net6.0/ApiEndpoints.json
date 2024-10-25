@@ -1,0 +1,170 @@
+[
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "AddChildDepartment",
+    "RelativePath": "api/EmployeeApi/AddNewChildDepartment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "child",
+        "Type": "EmployeeManagement.Model.ChildModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "AddEmployee",
+    "RelativePath": "api/EmployeeApi/AddNewEmployee",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeeModel",
+        "Type": "EmployeeManagement.Model.EmployeeModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "AddNewParentDepartment",
+    "RelativePath": "api/EmployeeApi/AddNewParentDepartment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parent",
+        "Type": "EmployeeManagement.Model.ParentModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "GetChildDepartmentByParentId",
+    "RelativePath": "api/EmployeeApi/ChildDeptById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "DeleteEmployee",
+    "RelativePath": "api/EmployeeApi/DeleteEmployee{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "GetAllChildDepartment",
+    "RelativePath": "api/EmployeeApi/GetAllChildDepartment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "GetAllEmployee",
+    "RelativePath": "api/EmployeeApi/GetAllEmployee",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "GetParentDepartment",
+    "RelativePath": "api/EmployeeApi/GetAllParentDepartment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "GetEmployeeById",
+    "RelativePath": "api/EmployeeApi/GetEmployeeById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.EmployeeApiController",
+    "Method": "UpdateEmployee",
+    "RelativePath": "api/EmployeeApi/UpdateEmployee{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeeModel",
+        "Type": "EmployeeManagement.Model.EmployeeModel",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeManagement.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[EmployeeManagement.WeatherForecast, EmployeeManagement, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]
